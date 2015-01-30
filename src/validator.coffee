@@ -10,10 +10,11 @@ class ValidatorBase
         buffer = this
 
     requiredParameters: (baseUrl, method) ->
-        # We cannot access req.route inside the middleware.
-        # This should be done in a cleaner way nevertheless as the
-        # current implementation is restricted to numbers.
-        baseUrl = baseUrl.replace /\d+/g, ':id'
+        # This only supports URL parameters as the last part.
+        # A nicer solution should be considered.
+        lastSlash = baseUrl.lastIndexOf '/'
+        if baseUrl not in (Object.keys @schema) and lastSlash > 0
+            baseUrl = baseUrl[0..baseUrl.lastIndexOf '/'] + ':id'
         return @schema?[baseUrl]?[method]
 
     validateObj: (obj, reqParams) ->
@@ -43,9 +44,10 @@ class ValidatorBase
         return null
 
     validate: (req, res, next) ->
-        reqParams = buffer.requiredParameters req.originalUrl, req.method
+        reqParams = buffer.requiredParameters req.baseUrl, req.method
         o =
             url       : req.originalUrl
+            baseUrl   : req.baseUrl
             method    : req.method
             reqParams : reqParams
             params    : req.params

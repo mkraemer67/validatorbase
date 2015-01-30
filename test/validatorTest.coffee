@@ -76,7 +76,13 @@ describe 'validator', ->
                 random : 'fail'
             .end (res) ->
                 res.status.should.equal 400
-                res.err
+                done()
+
+    it '/test/:id get should fail with bad id', (done) ->
+        request
+            .get host + '/test/17a2'
+            .end (res) ->
+                res.status.should.equal 400
                 done()
 
     it '/test/:id put should not work without body content', (done) ->
@@ -144,5 +150,6 @@ describe 'validator', ->
                 res.status.should.equal 200
                 done()
 
-    after () ->
-        server.close()
+    after (done) ->
+        # My stdout is not fast enough. :(
+        setTimeout done, 500
