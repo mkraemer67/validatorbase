@@ -43,18 +43,19 @@ class ValidatorBase
         return null
 
     validate: (req, res, next) ->
+        reqParams = buffer.requiredParameters req.originalUrl, req.method
         o =
-            url     : req.originalUrl
-            method  : req.method
-            params  : req.params
-            query   : req.query
-            body    : req.body
-            headers : req.headers
-            oauth   : req.oauth
+            url       : req.originalUrl
+            method    : req.method
+            reqParams : reqParams
+            params    : req.params
+            query     : req.query
+            body      : req.body
+            headers   : req.headers
+            oauth     : req.oauth
         buffer.logger?.debug
             msg  : 'validatorbase: entered'
             data : o
-        reqParams = buffer.requiredParameters req.originalUrl, req.method
         err = buffer.validateObj o.params, reqParams?.url
         if err
             e =
