@@ -46,7 +46,10 @@ describe 'validator', ->
         app = express()
         app.use bodyParser.json()
         app.use bodyParser.urlencoded extended : false
-        app.use validatorBase.validate
+
+        # Be sure to put the actual paths, which are expanded here.
+        # Otherwise the middleware has no access to the parameter.
+        app.use ['/test/info', '/test/:id'], validatorBase.validate
 
         server = http
             .createServer app

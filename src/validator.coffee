@@ -43,7 +43,6 @@ class ValidatorBase
         return null
 
     validate: (req, res, next) ->
-        console.log req
         o =
             url     : req.originalUrl
             method  : req.method
