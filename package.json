@@ -1,0 +1,31 @@
+{
+    "name": "validatorbase",
+    "version": "0.1.0",
+    "url": "https://github.com/mkraemer67/validatorbase",
+    "license": "Apache 2.0",
+    "description": "lightweight validation middleware for express",
+    "author": "Martin Krämer <mkraemer.de@gmail.com>",
+    "main": "lib/validator.js",
+    "dependencies": {
+        "lodash"             : "2.4.1"
+    },
+    "devDependencies": {
+        "body-parser"        : "1.10.2",
+        "chai"               : "1.10.0",
+        "coffee-script"      : "1.8.0",
+        "express"            : "4.11.1",
+        "mocha"              : "2.1.0",
+        "superagent"         : "0.21.0",
+        "validator"          : "3.28.0"
+    },
+    "repository": {
+        "type" : "git",
+        "url"  : "https://github.com/mkraemer67/validatorbase"
+    },
+    "scripts": {
+        "prepublish": "coffee -o lib/ -c src/validator.coffee"
+    },
+    "engines": {
+        "node": "0.10.x"
+    }
+}
